@@ -112,9 +112,11 @@ public GLCanvas (Composite parent, int style, GLData data) {
 	}
 	pixelFormat.initWithAttributes(attrib);
 
-	NSOpenGLContext ctx = data.shareContext == null ?
-	                      null :
-	                      data.shareContext.context;
+	if (data.shareContext == null || data.pending) {
+		dispose ();
+		SWT.error (SWT.ERROR_INVALID_CONTEXT);
+	}		
+	NSOpenGLContext ctx = data.shareContext.context;
 	context = (NSOpenGLContext) new NSOpenGLContext().alloc();
 	if (context == null) {
 		dispose ();
