@@ -112,9 +112,9 @@ public GLCanvas (Composite parent, int style, GLData data) {
 	}
 	pixelFormat.initWithAttributes(attrib);
 
-	NSOpenGLContext ctx =	data.shareContext == null ?
-							null :
-							data.shareContext.context;
+	NSOpenGLContext ctx = data.shareContext == null ?
+	                      data.fallbackContext :
+	                      data.shareContext.context;
 	context = new NSOpenGLContext().alloc();
 	if (context == null) {
 		dispose ();
