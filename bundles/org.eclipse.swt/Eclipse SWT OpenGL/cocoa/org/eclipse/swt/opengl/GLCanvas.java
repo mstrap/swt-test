@@ -112,8 +112,10 @@ public GLCanvas (Composite parent, int style, GLData data) {
 	}
 	pixelFormat.initWithAttributes(attrib);
 
-	NSOpenGLContext ctx = data.shareContext != null ? data.shareContext.context : null;
-	context = (NSOpenGLContext) new NSOpenGLContext().alloc();
+	NSOpenGLContext ctx =	data.shareContext == null ?
+							null :
+							data.shareContext.context;
+	context = new NSOpenGLContext().alloc();
 	if (context == null) {
 		dispose ();
 		SWT.error (SWT.ERROR_UNSUPPORTED_DEPTH);
